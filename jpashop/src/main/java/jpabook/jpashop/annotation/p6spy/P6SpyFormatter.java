@@ -9,15 +9,15 @@ import org.hibernate.engine.jdbc.internal.FormatStyle;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
-@Component  // 1
+@Component
 public class P6SpyFormatter extends JdbcEventListener implements MessageFormattingStrategy {
 
-    @Override // 2
+    @Override
     public void onAfterGetConnection(ConnectionInformation connectionInformation, SQLException e) {
         P6SpyOptions.getActiveInstance().setLogMessageFormat(getClass().getName());
     }
 
-    @Override // 3
+    @Override
     public String formatMessage(int connectionId, String now, long elapsed, String category, String prepared, String sql, String url) {
         StringBuilder sb = new StringBuilder();
         sb.append(category).append(" ").append(elapsed).append("ms");
