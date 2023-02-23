@@ -18,7 +18,8 @@ public class P6SpyFormatter extends JdbcEventListener implements MessageFormatti
     }
 
     @Override // 3
-    public String formatMessage(int connectionId, String now, long elapsed, String category, String prepared, String sql, String url) {
+    public String formatMessage(int connectionId, String now, long elapsed, String category, String prepared,
+                                String sql, String url) {
         StringBuilder sb = new StringBuilder();
         sb.append(category).append(" ").append(elapsed).append("ms");
         if (StringUtils.hasText(sql)) {
@@ -45,7 +46,8 @@ public class P6SpyFormatter extends JdbcEventListener implements MessageFormatti
     }
 
     private boolean isBasic(String sql) {
-        return sql.startsWith("select") || sql.startsWith("insert") || sql.startsWith("update") || sql.startsWith("delete");
+        return sql.startsWith("select") || sql.startsWith("insert") || sql.startsWith("update") || sql.startsWith(
+                "delete");
     }
 
 }
