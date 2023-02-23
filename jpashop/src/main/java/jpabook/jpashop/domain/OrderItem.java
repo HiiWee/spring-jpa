@@ -31,5 +31,7 @@ public class OrderItem {
     private int count; // 주문 수량
 
 
-
+    public void setOrder(final Order order) {
+        this.order = order;
+    }
 }
