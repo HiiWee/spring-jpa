@@ -9,7 +9,6 @@ import org.hibernate.engine.jdbc.internal.FormatStyle;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
-// 테스트용 주석
 @Component  // 1
 public class P6SpyFormatter extends JdbcEventListener implements MessageFormattingStrategy {
 
