@@ -11,6 +11,7 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToMany;
 import jpabook.jpashop.domain.Category;
+import jpabook.jpashop.exception.NotEnoughStockException;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,7 +29,9 @@ public abstract class Item {
     private Long id;
 
     private String name;
+
     private int price;
+
     private int stockQuantity;
 
     @ManyToMany(mappedBy = "items")
@@ -38,5 +41,25 @@ public abstract class Item {
         this.name = name;
         this.price = price;
         this.stockQuantity = stockQuantity;
+    }
+
+    //==비즈니스 로직==//
+
+    /**
+     * 재고 증가
+     */
+    public void addStock(final int stockQuantity) {
+        this.stockQuantity += stockQuantity;
+    }
+
+    /**
+     * 재고 감소
+     */
+    public void removeStock(final int stockQuantity) {
+        int restStock = this.stockQuantity - stockQuantity;
+        if (restStock < 0) {
+            throw new NotEnoughStockException();
+        }
+        this.stockQuantity = restStock;
     }
 }
