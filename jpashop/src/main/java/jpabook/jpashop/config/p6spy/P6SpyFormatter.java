@@ -22,7 +22,7 @@ public class P6SpyFormatter extends JdbcEventListener implements MessageFormatti
     public String formatMessage(int connectionId, String now, long elapsed, String category, String prepared,
                                 String sql, String url) {
         StringBuilder sb = new StringBuilder();
-        sb.append(category).append(" ").append(elapsed).append("ms");
+        sb.append(category).append(" ").append(elapsed).append("ms").append(" ").append(url);
         if (StringUtils.hasText(sql)) {
             sb.append(highlight(format(sql)));
         }
