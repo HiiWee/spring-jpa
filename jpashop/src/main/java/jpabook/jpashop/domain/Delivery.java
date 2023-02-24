@@ -40,10 +40,6 @@ public class Delivery {
         this.status = status;
     }
 
-    public static Delivery createDelivery(final Address address, final DeliveryStatus status) {
-        return new Delivery(address, status);
-    }
-
     public void addOrder(final Order order) {
         this.order = order;
     }

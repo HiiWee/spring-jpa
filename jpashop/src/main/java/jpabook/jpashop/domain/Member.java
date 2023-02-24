@@ -37,11 +37,4 @@ public class Member {
         this.name = name;
         this.address = address;
     }
-
-    public static Member createMember(final String name, final Address address) {
-        return Member.builder()
-                .name(name)
-                .address(address)
-                .build();
-    }
 }
