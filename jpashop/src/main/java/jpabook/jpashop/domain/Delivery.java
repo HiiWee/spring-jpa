@@ -9,13 +9,19 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import jpabook.jpashop.domain.order.Order;
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Delivery {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     @Column(name = "delivery_id")
     private Long id;
 
@@ -28,7 +34,17 @@ public class Delivery {
     @Enumerated(value = EnumType.STRING)
     private DeliveryStatus status;
 
-    public void setOrder(final Order order) {
+    @Builder
+    private Delivery(final Address address, final DeliveryStatus status) {
+        this.address = address;
+        this.status = status;
+    }
+
+    public static Delivery createDelivery(final Address address, final DeliveryStatus status) {
+        return new Delivery(address, status);
+    }
+
+    public void addOrder(final Order order) {
         this.order = order;
     }
 }

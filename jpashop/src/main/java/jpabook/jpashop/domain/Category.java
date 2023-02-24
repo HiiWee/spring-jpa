@@ -12,11 +12,16 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.xml.catalog.Catalog;
 import jpabook.jpashop.domain.item.Item;
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Category {
 
     @Id
@@ -39,15 +44,20 @@ public class Category {
     @OneToMany(mappedBy = "parent")
     private List<Category> child = new ArrayList<>();
 
-    //==연관관계 편의 메소드==//
-    public void addChildCategory(final Category child) {
-        this.child.add(child);
-        child.setParent(this);
-    }
-
-    private void setParent(final Category parent) {
+    @Builder
+    private Category(final String name, final Category parent) {
+        this.name = name;
         this.parent = parent;
     }
 
+    public static Category parent(final String name) {
+        return new Category(name, null);
+    }
 
+    public static Category child(final String name, final Category parent) {
+        Category child = new Category(name, parent);
+        //==연관관계 편의 메소드==//
+        parent.getChild().add(child);
+        return child;
+    }
 }

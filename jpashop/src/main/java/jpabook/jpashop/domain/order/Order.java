@@ -1,4 +1,4 @@
-package jpabook.jpashop.domain;
+package jpabook.jpashop.domain.order;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -16,14 +16,22 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import jpabook.jpashop.domain.Delivery;
+import jpabook.jpashop.domain.Member;
+import jpabook.jpashop.domain.OrderItem;
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "orders")
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Order {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     @Column(name = "order_id")
     private Long id;
 
@@ -44,21 +52,28 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
-    //==연관관계 편의 메소드==//
-    // 연관관계 편의 메소드의 위치는 양쪽 중에서 핵심적인 컨트롤을 하는 객체가 들고있는것이 좋다.
-    public void setMember(final Member member) {
+    @Builder
+    private Order(final Member member, final Delivery delivery, final OrderStatus status) {
         this.member = member;
+        this.delivery = delivery;
+        this.status = status;
+        //==연관관계 편의 메소드==//
+        // 연관관계 편의 메소드의 위치는 양쪽 중에서 핵심적인 컨트롤을 하는 객체가 들고있는것이 좋다.
         member.getOrders().add(this);
+        delivery.addOrder(this);
+    }
+
+    public static Order createOrder(final Member member, final Delivery delivery, final OrderStatus status) {
+        return Order.builder()
+                .member(member)
+                .delivery(delivery)
+                .status(status)
+                .build();
     }
 
     public void addOrderItem(final OrderItem orderItem) {
         orderItems.add(orderItem);
-        orderItem.setOrder(this);
-    }
-
-    public void setDelivery(final Delivery delivery) {
-        this.delivery = delivery;
-        delivery.setOrder(this);
+        orderItem.addOrder(this);
     }
 
 }
