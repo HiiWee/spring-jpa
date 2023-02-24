@@ -21,15 +21,4 @@ public class Book extends Item {
         this.author = author;
         this.isbn = isbn;
     }
-
-    public static Book createBook(final String name, final int price, final int stockQuantity, final String author,
-                                  final String isbn) {
-        return Book.builder()
-                .name(name)
-                .price(price)
-                .stockQuantity(stockQuantity)
-                .author(author)
-                .isbn(isbn)
-                .build();
-    }
 }

@@ -21,15 +21,4 @@ public class Movie extends Item {
         this.director = director;
         this.actor = actor;
     }
-
-    public static Movie createMovie(final String name, final int price, final int stockQuantity, final String director,
-                              final String actor) {
-        return Movie.builder()
-                .name(name)
-                .price(price)
-                .stockQuantity(stockQuantity)
-                .director(director)
-                .actor(actor)
-                .build();
-    }
 }

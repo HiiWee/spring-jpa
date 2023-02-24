@@ -21,15 +21,4 @@ public class Album extends Item {
         this.artist = artist;
         this.etc = etc;
     }
-
-    public static Album createAlbum(final String name, final int price, final int stockQuantity, final String artist,
-                                    final String etc) {
-        return Album.builder()
-                .name(name)
-                .price(price)
-                .stockQuantity(stockQuantity)
-                .artist(artist)
-                .etc(etc)
-                .build();
-    }
 }
