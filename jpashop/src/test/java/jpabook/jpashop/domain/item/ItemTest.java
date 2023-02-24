@@ -1,7 +1,9 @@
 package jpabook.jpashop.domain.item;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
 import jpabook.jpashop.exception.NotEnoughStockException;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 class ItemTest {
@@ -15,7 +17,7 @@ class ItemTest {
         book.addStock(100);
 
         // then
-        Assertions.assertThat(book.getStockQuantity()).isEqualTo(100);
+        assertThat(book.getStockQuantity()).isEqualTo(100);
     }
 
     @Test
@@ -28,7 +30,7 @@ class ItemTest {
         book.removeStock(100);
 
         // then
-        Assertions.assertThat(book.getStockQuantity()).isEqualTo(0);
+        assertThat(book.getStockQuantity()).isEqualTo(0);
     }
 
     @Test
@@ -37,7 +39,7 @@ class ItemTest {
         Book book = Book.builder().build();
 
         // then
-        Assertions.assertThatThrownBy(() -> book.removeStock(100))
+        assertThatThrownBy(() -> book.removeStock(100))
                 .isInstanceOf(NotEnoughStockException.class);
     }
 }
