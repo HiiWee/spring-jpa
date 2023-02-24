@@ -8,13 +8,13 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create  # entity? ??? ?? ??
-    properties:
-      hibernate:
-#        show_sql: true # ??? ??? system.out? ?? ??? ????.
-#        format_sql: true
+      ddl-auto: create
+#    properties:
+#      hibernate:
+#        show_sql: true # system.out으로 쿼리 출력함
+#        format_sql: true # SQL이 정렬되어 나타난다.
 
 #logging:
 #  level:
-#    org.hibernate.SQL: debug  # hibernate? ???? sql? debug ??? ?
-#    org.hibernate.type: trace
+#    org.hibernate.SQL: debug # hibernate가 logger를 통해 출력해줌
+#    org.hibernate.type: trace # SQL 쿼리 중 ?에 입력되는 파라미터를 보여줌
