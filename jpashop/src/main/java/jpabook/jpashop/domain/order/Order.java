@@ -63,14 +63,6 @@ public class Order {
         delivery.addOrder(this);
     }
 
-    public static Order createOrder(final Member member, final Delivery delivery, final OrderStatus status) {
-        return Order.builder()
-                .member(member)
-                .delivery(delivery)
-                .status(status)
-                .build();
-    }
-
     public void addOrderItem(final OrderItem orderItem) {
         orderItems.add(orderItem);
         orderItem.addOrder(this);

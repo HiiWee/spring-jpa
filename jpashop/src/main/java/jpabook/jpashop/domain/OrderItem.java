@@ -44,15 +44,6 @@ public class OrderItem {
         this.count = count;
     }
 
-    public static OrderItem createOrderItem(final Item item, final Order order, final int orderPrice, final int count) {
-        return OrderItem.builder()
-                .item(item)
-                .order(order)
-                .orderPrice(orderPrice)
-                .count(count)
-                .build();
-    }
-
     public void addOrder(final Order order) {
         this.order = order;
     }
