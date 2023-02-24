@@ -1,4 +1,4 @@
-package jpabook.jpashop.annotation.p6spy;
+package jpabook.jpashop.config.p6spy;
 
 import com.p6spy.engine.common.ConnectionInformation;
 import com.p6spy.engine.event.JdbcEventListener;
