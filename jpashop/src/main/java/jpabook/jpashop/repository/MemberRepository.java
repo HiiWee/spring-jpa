@@ -2,15 +2,20 @@ package jpabook.jpashop.repository;
 
 import java.util.List;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import jpabook.jpashop.domain.Member;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class MemberRepository {
 
-    @PersistenceContext
-    private EntityManager entityManager;
+    /**
+     * 기본 jpa는 @PersistenceContext가 필요하지만 Spring data jpa에서는 @Autowired로 주입할 수 있도록 해줌
+     */
+    private final EntityManager entityManager;
+
+    public MemberRepository(final EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
 
     public void save(final Member member) {
         entityManager.persist(member);
