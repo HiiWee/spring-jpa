@@ -1,5 +1,6 @@
 package jpabook.jpashop.domain.order;
 
+import com.fasterxml.jackson.databind.deser.SettableBeanProperty.Delegating;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,12 +18,14 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import jpabook.jpashop.domain.Delivery;
+import jpabook.jpashop.domain.DeliveryStatus;
 import jpabook.jpashop.domain.Member;
 import jpabook.jpashop.domain.OrderItem;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.aspectj.weaver.ast.Or;
 
 @Entity
 @Table(name = "orders")
@@ -53,10 +56,11 @@ public class Order {
     private OrderStatus status;
 
     @Builder
-    private Order(final Member member, final Delivery delivery, final OrderStatus status) {
+    private Order(final Member member, final Delivery delivery, final OrderStatus orderStatus) {
         this.member = member;
         this.delivery = delivery;
-        this.status = status;
+        this.orderDate = LocalDateTime.now();
+        this.status = orderStatus;
         //==연관관계 편의 메소드==//
         // 연관관계 편의 메소드의 위치는 양쪽 중에서 핵심적인 컨트롤을 하는 객체가 들고있는것이 좋다.
         member.getOrders().add(this);
@@ -66,6 +70,50 @@ public class Order {
     public void addOrderItem(final OrderItem orderItem) {
         orderItems.add(orderItem);
         orderItem.addOrder(this);
+    }
+
+    //==생성 메소드==//
+    public static Order createOrder(final Member member, final Delivery delivery, OrderItem... orderItems) {
+        Order order = Order.builder()
+                .member(member)
+                .delivery(delivery)
+                .orderStatus(OrderStatus.ORDER)
+                .build();
+        for (OrderItem orderItem : orderItems) {
+            order.addOrderItem(orderItem);
+        }
+
+        return order;
+    }
+
+    //==비즈니스 로직==//
+
+    /**
+     * 주문 취소
+     */
+    public void cancel() {
+        if (delivery.getStatus() == DeliveryStatus.COMP) {
+            throw new IllegalStateException("이미 배송완료된 상품은 취소가 불가능합니다.");
+        }
+        changeStatus(OrderStatus.CANCEL);
+        for (OrderItem orderItem : orderItems) {
+            orderItem.cancel();
+        }
+    }
+
+    private void changeStatus(final OrderStatus status) {
+        this.status = status;
+    }
+
+    //==조회 로직==//
+
+    /**
+     * 전체 주문 가격 조회
+     */
+    public int getTotalPrice() {
+        return orderItems.stream()
+                .mapToInt(OrderItem::getTotalPrice)
+                .sum();
     }
 
 }

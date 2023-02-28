@@ -48,4 +48,27 @@ public class OrderItem {
         this.order = order;
     }
 
+    //==생성 메소드==//
+    // 아이템 가격을 orderPrice로 하면 되지 않나? -> 할인, 쿠폰 등으로 가격이 변동될 수 있음 따라서 따로 가져감
+    public static OrderItem createOrderItem(final Item item, final int orderPrice, final int count) {
+        OrderItem orderItem = OrderItem.builder()
+                .item(item)
+                .orderPrice(orderPrice)
+                .count(count)
+                .build();
+
+        item.removeStock(count);
+        return orderItem;
+    }
+
+    //==비즈니스 로직==//
+    public void cancel() {
+        // 주문한 재고수량을 원복시킴
+        item.addStock(count);
+    }
+
+    //==조회 로직==//
+    public int getTotalPrice() {
+        return orderPrice * count;
+    }
 }
