@@ -22,7 +22,9 @@ public class ItemRepositoryTest {
     ItemRepository itemRepository;
 
     Album album;
+
     Book book;
+
     Movie movie;
 
     @BeforeEach
