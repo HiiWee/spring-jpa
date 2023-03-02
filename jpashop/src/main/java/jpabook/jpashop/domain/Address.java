@@ -1,17 +1,32 @@
 package jpabook.jpashop.domain;
 
 import javax.persistence.Embeddable;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Embeddable
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)  // 직접 생성을 방지하기 위해, JPA 스펙은 PROTECTED까지 허용해줌
-@AllArgsConstructor
+@Setter
+@NoArgsConstructor
 public class Address {
+
     private String city;
     private String street;
     private String zipcode;
+
+    public Address(final String city, final String street, final String zipcode) {
+        this.city = city;
+        this.street = street;
+        this.zipcode = zipcode;
+    }
+
+    @Override
+    public String toString() {
+        return "Address{" +
+                "city='" + city + '\'' +
+                ", street='" + street + '\'' +
+                ", zipcode='" + zipcode + '\'' +
+                '}';
+    }
 }
