@@ -5,6 +5,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import jpabook.jpashop.domain.item.Book;
 import jpabook.jpashop.domain.item.Item;
+import jpabook.jpashop.service.dto.UpdateBookForm;
 import lombok.Getter;
 
 @Getter
@@ -69,15 +70,8 @@ public class BookForm {
                 .build();
     }
 
-    @Override
-    public String toString() {
-        return "BookForm{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", price=" + price +
-                ", stockQuantity=" + stockQuantity +
-                ", author='" + author + '\'' +
-                ", isbn='" + isbn + '\'' +
-                '}';
+    public UpdateBookForm toServiceDto() {
+        return new UpdateBookForm(id, name, price, stockQuantity, author, isbn);
     }
+
 }

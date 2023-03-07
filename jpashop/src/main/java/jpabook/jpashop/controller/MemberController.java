@@ -1,6 +1,5 @@
 package jpabook.jpashop.controller;
 
-import java.util.List;
 import javax.validation.Valid;
 import jpabook.jpashop.controller.dto.MemberForm;
 import jpabook.jpashop.domain.Member;
