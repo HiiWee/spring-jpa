@@ -24,8 +24,7 @@ public class MemberController {
 
     @GetMapping("/members/new")
     public String createForm(final Model model) {
-        model.addAttribute("memberForm", new MemberForm());
-
+        model.addAttribute("memberForm", MemberForm.getEmptyForm());
         return "members/createMemberForm";
     }
 
@@ -34,12 +33,8 @@ public class MemberController {
         if (result.hasErrors()) {
             return "members/createMemberForm";
         }
-        Member build = Member.builder()
-                .name(form.getName())
-                .address(form.getAddress())
-                .build();
-        memberService.join(build);
-
+        Member member = form.createMember();
+        memberService.join(member);
         return "redirect:/";
     }
 
