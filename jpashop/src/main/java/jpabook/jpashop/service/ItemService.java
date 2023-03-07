@@ -1,8 +1,10 @@
 package jpabook.jpashop.service;
 
 import java.util.List;
+import jpabook.jpashop.domain.item.Book;
 import jpabook.jpashop.domain.item.Item;
 import jpabook.jpashop.repository.ItemRepository;
+import jpabook.jpashop.service.dto.UpdateBookForm;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,4 +31,13 @@ public class ItemService {
         return itemRepository.findById(itemId);
     }
 
+    @Transactional
+    public void updateItem(final UpdateBookForm updateBookForm) {
+        Item findItem = itemRepository.findById(updateBookForm.getId());
+        if (findItem instanceof Book) {
+            Book book = (Book) findItem;
+            book.changeBook(updateBookForm.getName(), updateBookForm.getPrice(), updateBookForm.getStockQuantity(),
+                    updateBookForm.getAuthor(), updateBookForm.getIsbn());
+        }
+    }
 }

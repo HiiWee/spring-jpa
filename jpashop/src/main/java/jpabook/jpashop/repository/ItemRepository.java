@@ -34,4 +34,5 @@ public class ItemRepository {
         return entityManager.createQuery("select i from Item i", Item.class)
                 .getResultList();
     }
+
 }

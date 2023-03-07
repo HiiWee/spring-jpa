@@ -2,33 +2,38 @@ package jpabook.jpashop.controller.dto;
 
 import javax.validation.constraints.NotEmpty;
 import jpabook.jpashop.domain.Address;
+import jpabook.jpashop.domain.Member;
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
-@Setter
 public class MemberForm {
 
     @NotEmpty(message = "회원 이름은 필수 입니다.")
     private String name;
-    private Address address;
+    private String city;
+    private String street;
+    private String zipcode;
 
-    public MemberForm() {
-        this.address = new Address();
+    private MemberForm() {
     }
 
-    // 생성자 추가
-    public MemberForm(String name, Address address) {
+    public MemberForm(final String name, final String city, final String street, final String zipcode) {
         this.name = name;
-        this.address = address;
+        this.city = city;
+        this.street = street;
+        this.zipcode = zipcode;
     }
 
-    @Override
-    public String toString() {
-        return "MemberForm{" +
-                "name='" + name + '\'' +
-                ", address=" + address +
-                '}';
+    public static MemberForm getEmptyForm() {
+        return new MemberForm();
     }
+
+    public Member createMember() {
+        return Member.builder()
+                .name(name)
+                .address(new Address(city, street, zipcode))
+                .build();
+    }
+
 }
 

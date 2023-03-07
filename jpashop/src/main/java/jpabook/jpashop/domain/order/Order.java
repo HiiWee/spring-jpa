@@ -1,6 +1,5 @@
 package jpabook.jpashop.domain.order;
 
-import com.fasterxml.jackson.databind.deser.SettableBeanProperty.Delegating;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +24,6 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.aspectj.weaver.ast.Or;
 
 @Entity
 @Table(name = "orders")
