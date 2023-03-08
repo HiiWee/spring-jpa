@@ -30,7 +30,7 @@ public class OrderController {
         this.itemService = itemService;
     }
 
-    @GetMapping("/order")
+    @GetMapping("/orders/new")
     public String createForm(final Model model) {
         List<Member> members = memberService.findMembers();
         List<Item> items = itemService.findItems();
@@ -42,7 +42,7 @@ public class OrderController {
         return "order/orderForm";
     }
 
-    @PostMapping("/order")
+    @PostMapping("/orders/new")
     public String create(@Valid final OrderInfoForm orderInfoForm, final BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "order/orderForm";
