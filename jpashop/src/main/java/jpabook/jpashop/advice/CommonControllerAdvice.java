@@ -1,4 +1,4 @@
-package jpabook.jpashop.controller.advice;
+package jpabook.jpashop.advice;
 
 import jpabook.jpashop.exception.NotEnoughStockException;
 import lombok.extern.slf4j.Slf4j;
