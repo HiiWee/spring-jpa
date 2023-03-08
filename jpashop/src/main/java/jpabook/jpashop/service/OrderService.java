@@ -2,6 +2,7 @@ package jpabook.jpashop.service;
 
 import java.util.List;
 import jpabook.jpashop.domain.Delivery;
+import jpabook.jpashop.domain.DeliveryStatus;
 import jpabook.jpashop.domain.Member;
 import jpabook.jpashop.domain.OrderItem;
 import jpabook.jpashop.domain.item.Item;
@@ -40,6 +41,7 @@ public class OrderService {
         // 배송정보 생성
         Delivery delivery = Delivery.builder()
                 .address(member.getAddress())
+                .status(DeliveryStatus.READY)
                 .build();
 
         // 주문상품 생성
