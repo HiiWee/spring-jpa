@@ -19,6 +19,7 @@ import jpabook.jpashop.domain.QMember;
 import jpabook.jpashop.domain.order.Order;
 import jpabook.jpashop.domain.order.OrderStatus;
 import jpabook.jpashop.domain.order.QOrder;
+import jpabook.jpashop.repository.dto.OrderSearch;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
