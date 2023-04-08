@@ -4,6 +4,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import jpabook.jpashop.domain.Order;
+import jpabook.jpashop.domain.OrderItem;
 
 public class JpaMain {
 
@@ -16,6 +18,13 @@ public class JpaMain {
         transaction.begin();
 
         try {
+            Order order = new Order();
+            entityManager.persist(order);
+
+            OrderItem orderItem = new OrderItem();
+            orderItem.addOrder(order);
+            entityManager.persist(orderItem);
+
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
