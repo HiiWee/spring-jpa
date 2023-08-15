@@ -1,0 +1,22 @@
+package hellojpa;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+
+@Entity
+public class Locker {
+
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    String name;
+
+    @OneToOne
+    @JoinColumn(name = "member_id")
+    private Member member;
+
+}

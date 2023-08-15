@@ -8,38 +8,33 @@ import javax.persistence.Persistence;
 public class JpaMain {
     public static void main(String[] args) {
         EntityManagerFactory factory = Persistence.createEntityManagerFactory("hello");
-        EntityManager entityManager = factory.createEntityManager();
-        EntityTransaction transaction = entityManager.getTransaction();
+        EntityManager em = factory.createEntityManager();
+        EntityTransaction transaction = em.getTransaction();
 
         transaction.begin();
         try {
-            Member member1 = new Member();
-            member1.setName("A");
 
-            Member member2 = new Member();
-            member2.setName("B");
+            Member member = saveMember(em);
 
-            Member member3 = new Member();
-            member3.setName("C");
+            Team team = new Team();
+            team.setName("teamA");
+            // Team이 아닌 외래키가 변경되어야 함 즉, MEMBER가 업데이트 되어야 한다.
+            team.getMembers().add(member);
 
-            System.out.println("===========");
-
-            entityManager.persist(member1);
-            entityManager.persist(member2);
-            entityManager.persist(member3);
-
-            System.out.println("member1.getId() = " + member1.getId());
-            System.out.println("member2.getId() = " + member2.getId());
-            System.out.println("member3.getId() = " + member3.getId());
-
-            System.out.println("===========");
+            em.persist(team);
 
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
         } finally {
-            entityManager.close();
+            em.close();
         }
         factory.close();
+    }
+
+    private static Member saveMember(final EntityManager em) {
+        Member member = new Member("member1");
+        em.persist(member);
+        return member;
     }
 }
