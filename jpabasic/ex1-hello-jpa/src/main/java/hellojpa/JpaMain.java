@@ -1,9 +1,12 @@
 package hellojpa;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
+
+import hellojpa.item.Item;
+import hellojpa.item.Movie;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.Persistence;
 
 public class JpaMain {
     public static void main(String[] args) {
@@ -14,14 +17,13 @@ public class JpaMain {
         transaction.begin();
         try {
 
-            Member member = saveMember(em);
+            Movie movie = new Movie("감독이름", "배우이름", "바람과함께사라지다", 100000);
+            em.persist(movie);
+            em.flush();
+            em.clear();
 
-            Team team = new Team();
-            team.setName("teamA");
-            // Team이 아닌 외래키가 변경되어야 함 즉, MEMBER가 업데이트 되어야 한다.
-            team.getMembers().add(member);
-
-            em.persist(team);
+            Item item = em.find(Item.class, movie.getId());
+            System.out.println("item = " + item);
 
             transaction.commit();
         } catch (Exception e) {
@@ -32,9 +34,4 @@ public class JpaMain {
         factory.close();
     }
 
-    private static Member saveMember(final EntityManager em) {
-        Member member = new Member("member1");
-        em.persist(member);
-        return member;
-    }
 }

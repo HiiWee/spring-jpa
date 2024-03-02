@@ -8,6 +8,10 @@
         <class>hellojpa.Locker</class>
         <class>hellojpa.Product</class>
         <class>hellojpa.MemberProduct</class>
+        <class>hellojpa.item.Item</class>
+        <class>hellojpa.item.Album</class>
+        <class>hellojpa.item.Book</class>
+        <class>hellojpa.item.Movie</class>
         <properties>
             <!-- 필수 속성 -->
             <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
