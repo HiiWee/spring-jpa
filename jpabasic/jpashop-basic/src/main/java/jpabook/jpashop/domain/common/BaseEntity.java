@@ -3,7 +3,7 @@ package jpabook.jpashop.domain.common;
 import jakarta.persistence.MappedSuperclass;
 import java.time.LocalDateTime;
 
-@MappedSupgrclass
+@MappedSuperclass
 public abstract class BaseEntity {
 
     private String createdBy;
