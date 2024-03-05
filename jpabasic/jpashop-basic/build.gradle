@@ -10,8 +10,8 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.hibernate:hibernate-entitymanager:5.6.15.Final'
-    runtimeOnly 'com.h2database:h2:1.4.200'
+    implementation 'org.hibernate:hibernate-core:6.4.2.Final'
+    runtimeOnly 'com.h2database:h2:2.2.224'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
 }

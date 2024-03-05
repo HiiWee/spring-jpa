@@ -5,7 +5,7 @@
     <persistence-unit name="hello">
         <class>jpabook.jpashop.domain.Member</class>
         <class>jpabook.jpashop.domain.Order</class>
-        <class>jpabook.jpashop.domain.Item</class>
+        <class>jpabook.jpashop.domain.item.Item</class>
         <class>jpabook.jpashop.domain.OrderItem</class>
         <class>jpabook.jpashop.domain.Delivery</class>
         <class>jpabook.jpashop.domain.Category</class>
