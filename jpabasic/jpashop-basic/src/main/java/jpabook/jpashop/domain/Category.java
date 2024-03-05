@@ -11,10 +11,11 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
+import jpabook.jpashop.domain.common.BaseEntity;
 import jpabook.jpashop.domain.item.Item;
 
 @Entity
-public class Category {
+public class Category extends BaseEntity {
 
     @Id
     @GeneratedValue
